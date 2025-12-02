@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Constructora Nabih - Soluciones de Construcción</title>
+    <!-- Carga de Tailwind CSS para un diseño responsive y moderno -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'primary': '#1E3A8A', // Azul Oscuro (Gris-Azulado)
+                        'secondary': '#FBBF24', // Amarillo Brillante
+                        'accent': '#10B981', // Verde Esmeralda
+                        'bg-light': '#F9FAFB',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                }
+            }
+        }
+    </script>
+    <!-- Estilo personalizado para un mejor control visual -->
+    <style>
+        /* Define la fuente Inter si no se carga automáticamente */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', 'sans-serif';
+            background-color: #F9FAFB;
+        }
+        /* Estilo para un efecto de elevación sutil en las tarjetas de clientes */
+        .client-card {
+            transition: all 0.3s ease;
+        }
+        .client-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        /* NOTA: Se eliminó la clase .hero-background y se reemplazó por la etiqueta <img> en el HTML. */
+    </style>
+</head>
+<body class="antialiased">
+
+    <!-- Encabezado y Navegación (Adaptado para Móvil) -->
+    <header class="bg-primary text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto px-4 py-4 flex flex-wrap justify-between items-center">
+            <h1 class="text-3xl font-extrabold tracking-tight">Constructora <span class="text-secondary">Nabih</span></h1>
+            
+            <!-- Botón de Hamburguesa para Móvil. Es grande para ser un buen target táctil. -->
+            <button id="menu-button" class="md:hidden p-2 rounded-lg text-white hover:bg-white hover:text-primary transition duration-300 focus:outline-none focus:ring-2 focus:ring-secondary">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+            
+            <!-- Navegación -->
+            <nav id="mobile-menu" class="hidden w-full md:flex md:w-auto md:space-x-6 md:text-lg md:font-medium mt-2 md:mt-0">
+                <a href="#servicios" class="block py-2 px-3 md:px-0 rounded-lg md:rounded-none hover:bg-white md:hover:bg-transparent hover:text-primary md:hover:text-secondary transition duration-200">Servicios</a>
+                <a href="#maquinaria" class="block py-2 px-3 md:px-0 rounded-lg md:rounded-none hover:bg-white md:hover:bg-transparent hover:text-primary md:hover:text-secondary transition duration-200">Maquinaria</a>
+                <a href="#clientes" class="block py-2 px-3 md:px-0 rounded-lg md:rounded-none hover:bg-white md:hover:bg-transparent hover:text-primary md:hover:text-secondary transition duration-200">Clientes</a>
+                <a href="#contacto" class="block mt-2 md:mt-0 bg-secondary text-primary px-4 py-2 rounded-lg font-bold hover:bg-yellow-300 transition duration-300 shadow-lg text-center">Contáctanos</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Sección de Héroe (Banner Principal) - Usa <img> con overlay de color para el contraste. -->
+    <section class="relative h-[60vh] min-h-[400px] flex items-center justify-center text-center overflow-hidden">
+        
+        <!-- 1. Imagen de Fondo (Ruta relativa) -->
+        <img src="hero-banner.jpg" 
+             alt="Fondo de Construcción" 
+             onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/1E3A8A/ffffff?text=Fondo+de+Cabecera';"
+             class="absolute inset-0 w-full h-full object-cover z-0">
+        
+        <!-- 2. Overlay de Degradado (Mantiene el efecto de filtro oscuro y azulado) -->
+        <div class="absolute inset-0 z-10" style="background-image: linear-gradient(to right, rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.5));"></div>
+
+        <!-- 3. Contenido Principal (Relativo al overlay y centrado) -->
+        <div class="relative p-6 md:p-10 bg-black bg-opacity-40 rounded-xl shadow-2xl max-w-4xl mx-4 z-20">
+            <h2 class="text-4xl md:text-6xl font-black text-white mb-4 leading-tight">
+                Soluciones Integrales en <span class="text-secondary">Construcción</span>
+            </h2>
+            <p class="text-xl md:text-2xl text-white font-light">
+                Confía en nosotros… <span class="font-semibold text-accent">¡Hacemos que tu construcción avance seguro y sin contratiempos!</span>
+            </p>
+            
+            <!-- Botones de Contacto Directo (Reemplazan 'Ver Servicios') -->
+            <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
+                
+                <!-- Botón 1: Teléfono (Color Secundario para destacar) -->
+                <a href="tel:8181128807" class="inline-flex items-center justify-center bg-secondary text-primary text-xl font-bold px-8 py-3 rounded-full hover:bg-yellow-300 transition duration-300 transform hover:scale-105 shadow-xl focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-opacity-50">
+                    📞 Llamar Ahora
+                </a>
+                
+                <!-- Botón 2: Correo (Color de Acento) -->
+                <a href="mailto:constructoranabih@gmail.com" class="inline-flex items-center justify-center bg-accent text-white text-xl font-bold px-8 py-3 rounded-full hover:bg-green-600 transition duration-300 transform hover:scale-105 shadow-xl focus:outline-none focus:ring-4 focus:ring-accent focus:ring-opacity-50">
+                    📧 Enviar Correo
+                </a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Sección de Servicios Principales -->
+    <section id="servicios" class="py-16 md:py-24 bg-bg-light">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-extrabold text-primary text-center mb-12">Nuestros Servicios Clave</h3>
+            <p class="text-xl text-center text-gray-600 max-w-3xl mx-auto mb-16">Ofrecemos soluciones flexibles y seguras para impulsar tu proyecto constructivo.</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                
+                <!-- Tarjetas de servicio con amplio relleno (p-6) para un buen target táctil -->
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-secondary">
+                    <div class="text-4xl text-secondary mb-4">🏗️</div>
+                    <h4 class="text-2xl font-bold text-primary mb-3">Trabajos por M³, Renta o Volumen</h4>
+                    <p class="text-gray-600">Nos adaptamos a las necesidades de tu proyecto. Flexibilidad total en contratación: por metro cúbico, renta de equipo o volumen total de obra.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-accent">
+                    <div class="text-4xl text-accent mb-4">✅</div>
+                    <h4 class="text-2xl font-bold text-primary mb-3">Cumplimiento Legal y Seguro</h4>
+                    <p class="text-gray-600">Incluimos IMSS, Certificación DC3 para operadores y seguro de la máquina. Tu proyecto cumple con todas las normativas de seguridad y legales.</p>
+                </div>
+
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-primary">
+                    <div class="text-4xl text-primary mb-4">💧</div>
+                    <h4 class="text-2xl font-bold text-primary mb-3">Cero Fugas + Kit Antiderrame</h4>
+                    <p class="text-gray-600">Comprometidos con el medio ambiente. Garantizamos cero fugas y disponemos de kits antiderrame en sitio para máxima prevención.</p>
+                </div>
+                
+                <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 border-t-4 border-secondary">
+                    <div class="text-4xl text-secondary mb-4">🛠️</div>
+                    <h4 class="text-2xl font-bold text-primary mb-3">Renta de Maquinaria Pesada</h4>
+                    <p class="text-gray-600">Disponibilidad de equipo especializado para cualquier fase de tu construcción o movimiento de tierras.</p>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    
+    <!-- Sección de Maquinaria (Destacando equipos) -->
+    <section id="maquinaria" class="py-16 md:py-24 bg-white">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-extrabold text-primary text-center mb-12">Equipos Disponibles en Renta</h3>
+            
+            <div class="grid md:grid-cols-3 gap-8">
+                
+                <!-- Motoconformadora -->
+                <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                    <!-- RUTA: Imagen en la misma carpeta que index.html -->
+                    <img src="img1.jpeg" 
+                         alt="Motoconformadora" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Motoconformadora';" 
+                         class="rounded-lg mb-4 w-full h-auto object-cover">
+                    <h4 class="text-2xl font-bold text-primary mb-2">Motoconformadora</h4>
+                    <p class="text-gray-600">Ideal para nivelación de terrenos, caminos y acabados de superficie.</p>
+                </div>
+
+                <!-- Vibrocompactador -->
+                <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                    <!-- RUTA: Imagen en la misma carpeta que index.html -->
+                    <img src="img2.jpg" 
+                         alt="Vibrocompactador" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Vibrocompactador';" 
+                         class="rounded-lg mb-4 w-full h-auto object-cover">
+                    <h4 class="text-2xl font-bold text-primary mb-2">Vibrocompactador</h4>
+                    <p class="text-gray-600">Garantiza la máxima densidad y estabilidad en la compactación de suelos y materiales.</p>
+                </div>
+
+                <!-- Retroexcavadora -->
+                <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
+                    <!-- RUTA: Imagen en la misma carpeta que index.html -->
+                    <img src="img3.jpg" 
+                         alt="Retroexcavadora" 
+                         onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Retroexcavadora';" 
+                         class="rounded-lg mb-4 w-full h-auto object-cover">
+                    <h4 class="text-2xl font-bold text-primary mb-2">Retroexcavadora</h4>
+                    <p class="text-gray-600">Versatilidad para excavación, zanjeo y manejo de materiales en espacios de trabajo variados.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE CLIENTES (Con nuevo estilo) -->
+    <section id="clientes" class="py-16 md:py-24 bg-bg-light">
+        <div class="container mx-auto px-4">
+            <h3 class="text-4xl font-extrabold text-primary text-center mb-16">Nuestros Clientes</h3>
+            <p class="text-xl text-center text-gray-600 max-w-4xl mx-auto mb-12">La confianza de grandes proyectos y empresas nos respalda. Trabajamos con líderes de la industria y gobiernos municipales.</p>
+
+            <!-- Grid Responsive para Logos/Nombres de Clientes -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+                
+                <!-- Lista de Clientes con el nuevo estilo 'client-card' -->
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Alora</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Kora Desarrollos</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Municipio de García</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Municipio de San Nicolás</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Municipio de Allende</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Bachoco</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Nutrioli</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">De Acero</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Gas Natury</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Galletera Cuetara</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Impermeabilizante IMPAC</p>
+                </div>
+                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
+                    <p class="text-lg font-bold text-primary">Dominio Cumbres</p>
+                </div>
+                
+            </div>
+        </div>
+    </section>
+
+    <!-- Sección de Llamada a la Acción/Contacto -->
+    <section id="contacto" class="py-16 md:py-24 bg-primary text-white">
+        <div class="container mx-auto px-4 text-center">
+            <h3 class="text-4xl md:text-5xl font-extrabold mb-4">¿Listo para Empezar tu Proyecto?</h3>
+            <p class="text-xl mb-12 font-light max-w-3xl mx-auto">Contáctanos hoy mismo para obtener una cotización sin compromiso y asegurar el éxito de tu obra.</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+                
+                <!-- Contacto Telefónico: Área grande para el toque. -->
+                <div class="p-6 bg-white bg-opacity-10 rounded-xl w-full md:w-auto shadow-xl hover:bg-opacity-20 transition duration-300">
+                    <p class="text-2xl font-semibold mb-2 flex items-center justify-center">
+                        <span class="text-secondary mr-3 text-3xl">📞</span> Teléfono
+                    </p>
+                    <a href="tel:8181128807" class="text-3xl md:text-4xl font-black text-secondary hover:text-yellow-300 transition duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-opacity-50">
+                        8181128807
+                    </a>
+                </div>
+
+                <!-- Contacto Correo Electrónico: Área grande para el toque. -->
+                <div class="p-6 bg-white bg-opacity-10 rounded-xl w-full md:w-auto shadow-xl hover:bg-opacity-20 transition duration-300">
+                    <p class="text-2xl font-semibold mb-2 flex items-center justify-center">
+                        <span class="text-accent mr-3 text-3xl">📧</span> Correo
+                    </p>
+                    <a href="mailto:constructoranabih@gmail.com" class="text-2xl md:text-3xl font-black text-accent hover:text-green-400 transition duration-300 break-words focus:outline-none focus:ring-4 focus:ring-accent focus:ring-opacity-50">
+                        constructoranabih@gmail.com
+                    </a>
+                </div>
+            </div>
+
+            <p class="mt-12 text-xl font-bold italic text-secondary">
+                Confía en nosotros… ¡Hacemos que tu construcción avance seguro y sin contratiempos!
+            </p>
+        </div>
+    </section>
+
+    <!-- Pie de Página (Actualizado) -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <p class="text-lg font-semibold mb-2">Constructora Nabih &copy; 2025</p>
+            <p class="text-sm text-gray-400 mb-1">Soluciones de construcción flexibles, seguras y profesionales.</p>
+            <!-- Enlaces del desarrollador: Se aumentó ligeramente el tamaño del texto a 'text-sm' para mejor target táctil. -->
+            <p class="text-sm text-gray-400 mt-4">
+                Desarrollado por: Ing. Edgar Lomas | Teléfono: 
+                <a href="tel:8123384579" class="hover:text-white transition duration-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:rounded-md text-base">8123384579</a>
+            </p>
+        </div>
+    </footer>
+
+    <!-- Script para navegación suave (Opcional, mejora la UX) y Script de Menú Móvil -->
+    <script>
+        // Script para navegación suave (smooth scrolling)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                // Ocultar el menú móvil al hacer clic en un enlace (importante para touch/usabilidad)
+                const mobileMenu = document.getElementById('mobile-menu');
+                if (mobileMenu && mobileMenu.classList.contains('flex')) {
+                    mobileMenu.classList.add('hidden');
+                    mobileMenu.classList.remove('flex');
+                    mobileMenu.classList.remove('flex-col');
+                }
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Script para alternar el menú móvil (Hamburger Menu)
+        document.getElementById('menu-button').addEventListener('click', function() {
+            const mobileMenu = document.getElementById('mobile-menu');
+            // Toggle de clases para alternar la visibilidad y el layout en móvil
+            mobileMenu.classList.toggle('hidden');
+            mobileMenu.classList.toggle('flex');
+            mobileMenu.classList.toggle('flex-col');
+        });
+    </script>
+</body>
+</html>
