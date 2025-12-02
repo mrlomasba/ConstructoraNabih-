@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Constructora Nabih - Soluciones de Construcción</title>
+    <link rel="icon" href="logo.ico">
     <!-- Carga de Tailwind CSS para un diseño responsive y moderno -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -15,6 +16,7 @@
                         'secondary': '#FBBF24', // Amarillo Brillante
                         'accent': '#10B981', // Verde Esmeralda
                         'bg-light': '#F9FAFB',
+                        'whatsapp': '#25D366', // Color oficial de WhatsApp
                     },
                     fontFamily: {
                         sans: ['Inter', 'sans-serif'],
@@ -43,6 +45,35 @@
     </style>
 </head>
 <body class="antialiased">
+
+    <!-- Botón Flotante de WhatsApp (FAB) -->
+    <!-- Fijo en la esquina inferior derecha, con alto z-index para estar siempre visible -->
+    <a href="https://wa.me/528181128807" 
+       target="_blank" 
+       rel="noopener noreferrer" 
+       class="fixed bottom-6 right-6 p-4 rounded-full bg-whatsapp text-white shadow-xl hover:bg-green-600 transition duration-300 z-[9999] focus:outline-none focus:ring-4 focus:ring-whatsapp focus:ring-opacity-50"
+       aria-label="Contactar por WhatsApp">
+        <!-- Icono de WhatsApp (SVG) - CÓDIGO CORREGIDO -->
+<!-- <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
+                Path estándar del logo de WhatsApp, relleno de blanco para contrastar con el fondo verde -->
+          <!--   <path fill="white" d="M12.04 2C7.94 2 4.5 5.4 4.5 9.5c0 1.48.42 2.9.89 4.14L3 21l3.52-.98c1.17.65 2.47.98 3.82.98 4.1 0 7.5-3.4 7.5-7.5s-3.4-7.5-7.5-7.5zm3.8 14.1c-.244-.122-.44-.183-.69-.305-.183-.06-.38-.122-.51-.122-.183 0-.366.06-.51.122s-.336.183-.51.244c-.183.061-.366.061-.55.061-.42 0-.814-.152-1.14-.427-.488-.366-1.127-.977-1.683-1.616-.58-.64-.977-1.372-1.22-1.793-.153-.244-.015-.427.122-.55.122-.122.244-.213.366-.336s-.213-.244.305-.305c.061-.09.091-.183.122-.244.03-.06.03-.122.015-.152-.015-.03-.03-.091-.06-.183s-.122-.274-.152-.488c-.03-.244-.091-.396-.122-.488-.03-.091-.213-.152-.274-.183-.061-.03-.122-.03-.183-.03-.183 0-.305.03-.55.03-.183 0-.396.061-.64.305-.244.244-.58.55-.763.733-.244.213-.396.488-.51.67-.122.183-.213.366-.213.55 0 .213.061.427.152.61.091.183.183.396.305.58.122.183.213.336.336.458s.274.213.427.305c.58.396 1.159.793 1.83.976.732.213 1.343.336 1.83.336.396 0 .763-.091 1.099-.183.427-.122.824-.396 1.127-.58.213-.122.366-.244.51-.366.122-.091.244-.183.427-.305.183-.122.336-.091.51-.03.153.061.396.183.64.274.244.091.488.152.58.213.091.061.152.091.244.122.091.03.183.03.244.015.183-.03.305-.091.427-.152.091-.061.183-.122.244-.152.122-.061.274-.091.366-.122.091-.03.122-.03.183-.015.061.015.152.091.274.213.122.122.213.274.305.396.122.183.183.396.183.58 0 .091-.015.213-.091.305-.091.091-.183.152-.274.213z"/> 
+        </svg>-->
+
+        <!-- Bloque de Imagen WhatsApp COMENTADO PARA ALTERNATIVA -->
+        <!-- 
+             Si el icono SVG anterior (arriba) se sigue viendo mal, puedes usar un archivo de imagen.
+             PASOS:
+             1. Comenta el bloque <svg>...</svg> de arriba.
+             2. Descomenta el bloque <img> de abajo.
+             3. Asegúrate de guardar el icono de WhatsApp (ej. 'whatsapp-icon.png') en la misma carpeta, o actualiza la ruta (src).
+        -->
+        
+        <img src="whatsapp-icon.png" 
+             alt="Icono de WhatsApp" 
+             onerror="this.onerror=null;this.src='https://placehold.co/28x28/ffffff/25D366?text=WA';"
+             class="w-7 h-7 object-contain">
+        
+    </a>
 
     <!-- Encabezado y Navegación (Adaptado para Móvil) -->
     <header class="bg-primary text-white shadow-lg sticky top-0 z-50">
@@ -150,7 +181,7 @@
                 <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
                     <!-- RUTA: Imagen en la misma carpeta que index.html -->
                     <img src="img1.jpeg" 
-                         alt="Motoconformadora" 
+                         alt="Fotografía de una Motoconformadora Nabih en operación" 
                          onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Motoconformadora';" 
                          class="rounded-lg mb-4 w-full h-auto object-cover">
                     <h4 class="text-2xl font-bold text-primary mb-2">Motoconformadora</h4>
@@ -161,7 +192,7 @@
                 <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
                     <!-- RUTA: Imagen en la misma carpeta que index.html -->
                     <img src="img2.jpg" 
-                         alt="Vibrocompactador" 
+                         alt="Fotografía de un Vibrocompactador en obra" 
                          onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Vibrocompactador';" 
                          class="rounded-lg mb-4 w-full h-auto object-cover">
                     <h4 class="text-2xl font-bold text-primary mb-2">Vibrocompactador</h4>
@@ -172,7 +203,7 @@
                 <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
                     <!-- RUTA: Imagen en la misma carpeta que index.html -->
                     <img src="img3.jpg" 
-                         alt="Retroexcavadora" 
+                         alt="Retroexcavadora realizando trabajos de zanjeo" 
                          onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Retroexcavadora';" 
                          class="rounded-lg mb-4 w-full h-auto object-cover">
                     <h4 class="text-2xl font-bold text-primary mb-2">Retroexcavadora</h4>
