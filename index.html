@@ -25,7 +25,7 @@
             }
         }
     </script>
-    <!-- Estilo personalizado para un mejor control visual -->
+    <!-- Estilo personalizado para un mejor control visual y el carrusel -->
     <style>
         /* Define la fuente Inter si no se carga automáticamente */
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
@@ -36,12 +36,26 @@
         /* Estilo para un efecto de elevación sutil en las tarjetas de clientes */
         .client-card {
             transition: all 0.3s ease;
+            /* Asegura que la tarjeta no se colapse en el carrusel */
+            min-width: 150px; 
+            /* Se añade un poco de margen derecho en CSS para compensar el 'space-x-6' de Tailwind en caso de que sea necesario */
+            margin-right: 1.5rem; 
+            box-sizing: border-box;
         }
         .client-card:hover {
             transform: translateY(-4px);
             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
         }
-        /* NOTA: Se eliminó la clase .hero-background y se reemplazó por la etiqueta <img> en el HTML. */
+        
+        /* Contenedor del carrusel */
+        .carousel-track {
+            display: flex;
+            align-items: center;
+            /* Desactiva la transición de Tailwind para usar el desplazamiento de JS */
+            transition: none !important;
+            /* Se asegura que el flex container no envuelva los ítems */
+            flex-wrap: nowrap; 
+        }
     </style>
 </head>
 <body class="antialiased">
@@ -49,30 +63,14 @@
     <!-- Botón Flotante de WhatsApp (FAB) -->
     <!-- Fijo en la esquina inferior derecha, con alto z-index para estar siempre visible -->
     <a href="https://wa.me/528181128807" 
-       target="_blank" 
-       rel="noopener noreferrer" 
-       class="fixed bottom-6 right-6 p-4 rounded-full bg-whatsapp text-white shadow-xl hover:bg-green-600 transition duration-300 z-[9999] focus:outline-none focus:ring-4 focus:ring-whatsapp focus:ring-opacity-50"
-       aria-label="Contactar por WhatsApp">
-        <!-- Icono de WhatsApp (SVG) - CÓDIGO CORREGIDO -->
-<!-- <svg viewBox="0 0 24 24" width="28" height="28" xmlns="http://www.w3.org/2000/svg">
-                Path estándar del logo de WhatsApp, relleno de blanco para contrastar con el fondo verde -->
-          <!--   <path fill="white" d="M12.04 2C7.94 2 4.5 5.4 4.5 9.5c0 1.48.42 2.9.89 4.14L3 21l3.52-.98c1.17.65 2.47.98 3.82.98 4.1 0 7.5-3.4 7.5-7.5s-3.4-7.5-7.5-7.5zm3.8 14.1c-.244-.122-.44-.183-.69-.305-.183-.06-.38-.122-.51-.122-.183 0-.366.06-.51.122s-.336.183-.51.244c-.183.061-.366.061-.55.061-.42 0-.814-.152-1.14-.427-.488-.366-1.127-.977-1.683-1.616-.58-.64-.977-1.372-1.22-1.793-.153-.244-.015-.427.122-.55.122-.122.244-.213.366-.336s-.213-.244.305-.305c.061-.09.091-.183.122-.244.03-.06.03-.122.015-.152-.015-.03-.03-.091-.06-.183s-.122-.274-.152-.488c-.03-.244-.091-.396-.122-.488-.03-.091-.213-.152-.274-.183-.061-.03-.122-.03-.183-.03-.183 0-.305.03-.55.03-.183 0-.396.061-.64.305-.244.244-.58.55-.763.733-.244.213-.396.488-.51.67-.122.183-.213.366-.213.55 0 .213.061.427.152.61.091.183.183.396.305.58.122.183.213.336.336.458s.274.213.427.305c.58.396 1.159.793 1.83.976.732.213 1.343.336 1.83.336.396 0 .763-.091 1.099-.183.427-.122.824-.396 1.127-.58.213-.122.366-.244.51-.366.122-.091.244-.183.427-.305.183-.122.336-.091.51-.03.153.061.396.183.64.274.244.091.488.152.58.213.091.061.152.091.244.122.091.03.183.03.244.015.183-.03.305-.091.427-.152.091-.061.183-.122.244-.152.122-.061.274-.091.366-.122.091-.03.122-.03.183-.015.061.015.152.091.274.213.122.122.213.274.305.396.122.183.183.396.183.58 0 .091-.015.213-.091.305-.091.091-.183.152-.274.213z"/> 
-        </svg>-->
-
-        <!-- Bloque de Imagen WhatsApp COMENTADO PARA ALTERNATIVA -->
-        <!-- 
-             Si el icono SVG anterior (arriba) se sigue viendo mal, puedes usar un archivo de imagen.
-             PASOS:
-             1. Comenta el bloque <svg>...</svg> de arriba.
-             2. Descomenta el bloque <img> de abajo.
-             3. Asegúrate de guardar el icono de WhatsApp (ej. 'whatsapp-icon.png') en la misma carpeta, o actualiza la ruta (src).
-        -->
-        
+        target="_blank" 
+        rel="noopener noreferrer" 
+        class="fixed bottom-6 right-6 p-4 rounded-full bg-whatsapp text-white shadow-xl hover:bg-green-600 transition duration-300 z-[9999] focus:outline-none focus:ring-4 focus:ring-whatsapp focus:ring-opacity-50"
+        aria-label="Contactar por WhatsApp">
         <img src="whatsapp-icon.png" 
-             alt="Icono de WhatsApp" 
-             onerror="this.onerror=null;this.src='https://placehold.co/28x28/ffffff/25D366?text=WA';"
-             class="w-7 h-7 object-contain">
-        
+            alt="Icono de WhatsApp" 
+            onerror="this.onerror=null;this.src='https://placehold.co/28x28/ffffff/25D366?text=WA';"
+            class="w-7 h-7 object-contain">
     </a>
 
     <!-- Encabezado y Navegación (Adaptado para Móvil) -->
@@ -100,9 +98,9 @@
         
         <!-- 1. Imagen de Fondo (Ruta relativa) -->
         <img src="hero-banner.jpg" 
-             alt="Fondo de Construcción" 
-             onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/1E3A8A/ffffff?text=Fondo+de+Cabecera';"
-             class="absolute inset-0 w-full h-full object-cover z-0">
+            alt="Fondo de Construcción" 
+            onerror="this.onerror=null;this.src='https://placehold.co/1920x1080/1E3A8A/ffffff?text=Fondo+de+Cabecera';"
+            class="absolute inset-0 w-full h-full object-cover z-0">
         
         <!-- 2. Overlay de Degradado (Mantiene el efecto de filtro oscuro y azulado) -->
         <div class="absolute inset-0 z-10" style="background-image: linear-gradient(to right, rgba(30, 58, 138, 0.7), rgba(30, 58, 138, 0.5));"></div>
@@ -181,9 +179,9 @@
                 <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
                     <!-- RUTA: Imagen en la misma carpeta que index.html -->
                     <img src="img1.jpeg" 
-                         alt="Fotografía de una Motoconformadora Nabih en operación" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Motoconformadora';" 
-                         class="rounded-lg mb-4 w-full h-auto object-cover">
+                        alt="Fotografía de una Motoconformadora Nabih en operación" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Motoconformadora';" 
+                        class="rounded-lg mb-4 w-full h-auto object-cover">
                     <h4 class="text-2xl font-bold text-primary mb-2">Motoconformadora</h4>
                     <p class="text-gray-600">Ideal para nivelación de terrenos, caminos y acabados de superficie.</p>
                 </div>
@@ -192,9 +190,9 @@
                 <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
                     <!-- RUTA: Imagen en la misma carpeta que index.html -->
                     <img src="img2.jpg" 
-                         alt="Fotografía de un Vibrocompactador en obra" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Vibrocompactador';" 
-                         class="rounded-lg mb-4 w-full h-auto object-cover">
+                        alt="Fotografía de un Vibrocompactador en obra" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Vibrocompactador';" 
+                        class="rounded-lg mb-4 w-full h-auto object-cover">
                     <h4 class="text-2xl font-bold text-primary mb-2">Vibrocompactador</h4>
                     <p class="text-gray-600">Garantiza la máxima densidad y estabilidad en la compactación de suelos y materiales.</p>
                 </div>
@@ -203,9 +201,9 @@
                 <div class="bg-bg-light p-6 rounded-xl shadow-md flex flex-col items-center text-center">
                     <!-- RUTA: Imagen en la misma carpeta que index.html -->
                     <img src="img3.jpg" 
-                         alt="Retroexcavadora realizando trabajos de zanjeo" 
-                         onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Retroexcavadora';" 
-                         class="rounded-lg mb-4 w-full h-auto object-cover">
+                        alt="Retroexcavadora realizando trabajos de zanjeo" 
+                        onerror="this.onerror=null;this.src='https://placehold.co/600x375/374151/ffffff?text=Retroexcavadora';" 
+                        class="rounded-lg mb-4 w-full h-auto object-cover">
                     <h4 class="text-2xl font-bold text-primary mb-2">Retroexcavadora</h4>
                     <p class="text-gray-600">Versatilidad para excavación, zanjeo y manejo de materiales en espacios de trabajo variados.</p>
                 </div>
@@ -213,101 +211,123 @@
         </div>
     </section>
 
-    <!-- SECCIÓN DE CLIENTES (Con nuevo estilo) -->
+    <!-- SECCIÓN DE CLIENTES (Con Carrusel Infinito) -->
     <section id="clientes" class="py-16 md:py-24 bg-bg-light">
         <div class="container mx-auto px-4">
             <h3 class="text-4xl font-extrabold text-primary text-center mb-16">Nuestros Clientes</h3>
             <p class="text-xl text-center text-gray-600 max-w-4xl mx-auto mb-12">La confianza de grandes proyectos y empresas nos respalda. Trabajamos con líderes de la industria y gobiernos municipales.</p>
 
-            <!-- Grid Responsive para Logos/Nombres de Clientes -->
-            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6">
+            <!-- Contenedor del Carrusel (Asegura el corte de la animación) -->
+            <div id="carousel-wrapper" class="overflow-hidden relative p-4">
                 
-                <!-- Lista de Clientes con el nuevo estilo 'client-card' -->
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Alora</p>
+                <!-- Pista del Carrusel - El JS controlará el 'transform' para el desplazamiento -->
+                <!-- Se eliminó 'space-x-6' ya que se manejará el espaciado con margen CSS en .client-card -->
+                <div id="carousel-track" class="carousel-track">
+                    <!-- El contenido original de los logos se colocará aquí y se duplicará con JS -->
+                    
+                    <!-- Lista de Clientes (Original) -->
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Alora</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Kora Desarrollos</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Municipio de García</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Municipio de San Nicolás</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Municipio de Allende</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Bachoco</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Nutrioli</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">De Acero</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Gas Natury</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Galletera Cuetara</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">IMPAC</p>
+                    </div>
+                    <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
+                        <p class="text-lg font-bold text-primary">Dominio Cumbres</p>
+                    </div>
                 </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Kora Desarrollos</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Municipio de García</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Municipio de San Nicolás</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Municipio de Allende</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Bachoco</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Nutrioli</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">De Acero</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Gas Natury</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-secondary hover:bg-yellow-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Galletera Cuetara</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-accent hover:bg-green-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Impermeabilizante IMPAC</p>
-                </div>
-                <div class="client-card p-4 bg-white rounded-lg shadow-lg flex items-center justify-center h-24 border-b-4 border-primary hover:bg-blue-50 transition duration-300">
-                    <p class="text-lg font-bold text-primary">Dominio Cumbres</p>
-                </div>
-                
             </div>
         </div>
     </section>
 
     <!-- Sección de Llamada a la Acción/Contacto -->
     <section id="contacto" class="py-16 md:py-24 bg-primary text-white">
-        <div class="container mx-auto px-4 text-center">
-            <h3 class="text-4xl md:text-5xl font-extrabold mb-4">¿Listo para Empezar tu Proyecto?</h3>
-            <p class="text-xl mb-12 font-light max-w-3xl mx-auto">Contáctanos hoy mismo para obtener una cotización sin compromiso y asegurar el éxito de tu obra.</p>
+        <div class="container mx-auto px-4">
+            <div class="text-center mb-12">
+                <h3 class="text-4xl md:text-5xl font-extrabold mb-4">¿Listo para Empezar tu Proyecto?</h3>
+                <p class="text-xl font-light">Completa el formulario y te contactaremos de inmediato por WhatsApp.</p>
+            </div>
             
-            <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-                
-                <!-- Contacto Telefónico: Área grande para el toque. -->
-                <div class="p-6 bg-white bg-opacity-10 rounded-xl w-full md:w-auto shadow-xl hover:bg-opacity-20 transition duration-300">
-                    <p class="text-2xl font-semibold mb-2 flex items-center justify-center">
-                        <span class="text-secondary mr-3 text-3xl">📞</span> Teléfono
+            <div class="max-w-4xl mx-auto grid md:grid-cols-2 gap-12">
+                <!-- Información de contacto directa -->
+                <div class="space-y-8">
+                    <div class="p-6 bg-white bg-opacity-10 rounded-xl shadow-xl">
+                        <p class="text-xl font-semibold mb-2 flex items-center"><span class="text-secondary mr-3 text-2xl">📞</span> Teléfono</p>
+                        <a href="tel:8181128807" class="text-2xl font-black text-secondary hover:text-yellow-300 transition duration-300">8181128807</a>
+                    </div>
+                    <div class="p-6 bg-white bg-opacity-10 rounded-xl shadow-xl">
+                        <p class="text-xl font-semibold mb-2 flex items-center"><span class="text-accent mr-3 text-2xl">📧</span> Correo</p>
+                        <a href="mailto:constructoranabih@gmail.com" class="text-xl font-black text-accent hover:text-green-400 break-words">constructoranabih@gmail.com</a>
+                    </div>
+                    <p class="text-xl font-bold italic text-secondary text-center md:text-left">
+                        Confía en nosotros… ¡Hacemos que tu construcción avance seguro y sin contratiempos!
                     </p>
-                    <a href="tel:8181128807" class="text-3xl md:text-4xl font-black text-secondary hover:text-yellow-300 transition duration-300 focus:outline-none focus:ring-4 focus:ring-secondary focus:ring-opacity-50">
-                        8181128807
-                    </a>
                 </div>
 
-                <!-- Contacto Correo Electrónico: Área grande para el toque. -->
-                <div class="p-6 bg-white bg-opacity-10 rounded-xl w-full md:w-auto shadow-xl hover:bg-opacity-20 transition duration-300">
-                    <p class="text-2xl font-semibold mb-2 flex items-center justify-center">
-                        <span class="text-accent mr-3 text-3xl">📧</span> Correo
-                    </p>
-                    <a href="mailto:constructoranabih@gmail.com" class="text-2xl md:text-3xl font-black text-accent hover:text-green-400 transition duration-300 break-words focus:outline-none focus:ring-4 focus:ring-accent focus:ring-opacity-50">
-                        constructoranabih@gmail.com
-                    </a>
+        <!-- Formulario Inteligente -->
+                <div class="bg-white rounded-2xl p-8 shadow-2xl text-gray-800">
+                    <form id="contactForm" class="space-y-5">
+                        <div>
+                            <label class="block text-sm font-bold text-primary mb-1">Nombre Completo</label>
+                            <input type="text" id="nombre" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Ej. Juan Pérez">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-primary mb-1">Correo Electrónico</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="ejemplo@correo.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-primary mb-1">Teléfono de contacto</label>
+                            <input type="tel" id="tel" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="10 dígitos">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-bold text-primary mb-1">Mensaje o consulta</label>
+                            <textarea id="mensaje" required rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="¿En qué podemos ayudarte?"></textarea>
+                        </div>
+                        <button type="submit" class="w-full bg-whatsapp text-white font-bold py-4 rounded-lg shadow-lg hover:bg-green-600 transition duration-300 flex items-center justify-center gap-2">
+                            <span>🚀 Enviar a WhatsApp</span>
+                        </button>
+                    </form>
                 </div>
             </div>
-
-            <p class="mt-12 text-xl font-bold italic text-secondary">
-                Confía en nosotros… ¡Hacemos que tu construcción avance seguro y sin contratiempos!
-            </p>
         </div>
     </section>
 
-    <!-- Pie de Página (Actualizado) -->
-    <footer class="bg-gray-800 text-white py-8">
+    <!-- Pie de Página (Actualizado para fondo negro y texto blanco sutil) -->
+    <footer class="bg-black text-gray-300 py-8">
         <div class="container mx-auto px-4 text-center">
             <p class="text-lg font-semibold mb-2">Constructora Nabih &copy; 2025</p>
-            <p class="text-sm text-gray-400 mb-1">Soluciones de construcción flexibles, seguras y profesionales.</p>
+            <p class="text-sm mb-1">Soluciones de construcción flexibles, seguras y profesionales.</p>
             <!-- Enlaces del desarrollador: Se aumentó ligeramente el tamaño del texto a 'text-sm' para mejor target táctil. -->
-            <p class="text-sm text-gray-400 mt-4">
+            <p class="text-sm mt-4">
                 Desarrollado por: Ing. Edgar Lomas | Teléfono: 
-                <a href="tel:8123384579" class="hover:text-white transition duration-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:rounded-md text-base">8123384579</a>
+                <a href="tel:8123384579" class="hover:text-white transition duration-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:rounded-md text-base text-gray-300">8123384579</a>
             </p>
         </div>
     </footer>
@@ -340,6 +360,89 @@
             mobileMenu.classList.toggle('flex');
             mobileMenu.classList.toggle('flex-col');
         });
+
+        // Lógica del Formulario Inteligente de WhatsApp
+        document.getElementById('contactForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const nombre = document.getElementById('nombre').value;
+            const email = document.getElementById('email').value;
+            const tel = document.getElementById('tel').value;
+            const mensaje = document.getElementById('mensaje').value;
+            const numeroEmpresa = "528181128807";
+
+            // Estructura del mensaje para WhatsApp
+            const textoMensaje = `*Nueva Consulta - Constructora Nabih*%0A%0A` +
+                                 `*Nombre:* ${nombre}%0A` +
+                                 `*Correo:* ${email}%0A` +
+                                 `*Teléfono:* ${tel}%0A` +
+                                 `*Mensaje:* ${mensaje}`;
+
+            // Abrir WhatsApp en nueva pestaña
+            const urlWhatsApp = `https://wa.me/${numeroEmpresa}?text=${textoMensaje}`;
+            window.open(urlWhatsApp, '_blank');
+        });
+
+        // =============================================================
+        // LÓGICA DEL CARRUSEL INFINITO DE CLIENTES (NUEVA Y OPTIMIZADA)
+        // =============================================================
+        function initCarousel() {
+            const track = document.getElementById('carousel-track');
+            if (!track) return; // Salir si el elemento no existe
+
+            // 1. Duplicar el contenido SÓLO si no se ha hecho
+            if (!track.dataset.duplicated) {
+                const originalContent = track.innerHTML;
+                track.innerHTML += originalContent;
+                track.dataset.duplicated = 'true';
+            }
+
+            let scrollPos = 0;
+            // Velocidad del desplazamiento (ajustable)
+            const speed = 0.4; 
+            let originalContentWidth = 0;
+            
+            // 2. Función para calcular dimensiones (necesaria para la responsividad)
+            function calculateDimensions() {
+                // scrollWidth da el ancho total del contenido, incluyendo el duplicado
+                const totalWidth = track.scrollWidth;
+                originalContentWidth = totalWidth / 2;
+                
+                // Asegurar que el track se estire para contener el doble de contenido
+                track.style.width = `${totalWidth}px`;
+            }
+
+            // 3. Recalcular dimensiones al inicio y en cada redimensionamiento
+            calculateDimensions();
+            window.addEventListener('resize', calculateDimensions);
+            
+            // 4. Función de animación con requestAnimationFrame
+            function animateCarousel() {
+                // Mueve la posición de scroll
+                scrollPos += speed;
+
+                // Si la posición de scroll supera el ancho del contenido original,
+                // resetea la posición a 0 para crear el efecto infinito (loop)
+                // Esto funciona correctamente incluso si el ancho ha cambiado, gracias a calculateDimensions()
+                if (scrollPos >= originalContentWidth) {
+                    scrollPos = 0;
+                }
+
+                // Aplica la transformación (movimiento a la izquierda)
+                track.style.transform = `translateX(-${scrollPos}px)`;
+
+                // Solicita el siguiente frame de animación
+                requestAnimationFrame(animateCarousel);
+            }
+
+            // Iniciar la animación
+            if (originalContentWidth > 0) {
+                animateCarousel();
+            }
+        }
+
+        // Llamar a la inicialización del carrusel una vez que la ventana haya cargado
+        window.addEventListener('load', initCarousel);
     </script>
 </body>
 </html>
