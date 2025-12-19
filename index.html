@@ -291,27 +291,28 @@
                     </p>
                 </div>
 
-        <!-- Formulario Inteligente -->
-                <div class="bg-white rounded-2xl p-8 shadow-2xl text-gray-800">
-                    <form id="contactForm" class="space-y-5">
-                        <div>
-                            <label class="block text-sm font-bold text-primary mb-1">Nombre Completo</label>
-                            <input type="text" id="nombre" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="Ej. Juan Pérez">
+        <!-- Formulario Inteligente (Optimizado para móvil) -->
+                <div class="bg-white rounded-2xl p-6 md:p-8 shadow-2xl text-gray-800">
+                    <form id="contactForm" class="space-y-4 md:space-y-5">
+                        <div class="group">
+                            <label class="block text-sm font-bold text-primary mb-1.5 transition-colors group-focus-within:text-accent">Nombre Completo</label>
+                            <input type="text" id="nombre" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none transition-all duration-200" placeholder="Ej. Juan Pérez">
                         </div>
-                        <div>
-                            <label class="block text-sm font-bold text-primary mb-1">Correo Electrónico</label>
-                            <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="ejemplo@correo.com">
+                        <div class="group">
+                            <label class="block text-sm font-bold text-primary mb-1.5 transition-colors group-focus-within:text-accent">Correo Electrónico</label>
+                            <input type="email" id="email" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none transition-all duration-200" placeholder="ejemplo@correo.com">
                         </div>
-                        <div>
-                            <label class="block text-sm font-bold text-primary mb-1">Teléfono de contacto</label>
-                            <input type="tel" id="tel" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="10 dígitos">
+                        <div class="group">
+                            <label class="block text-sm font-bold text-primary mb-1.5 transition-colors group-focus-within:text-accent">Teléfono de contacto</label>
+                            <input type="tel" id="tel" required class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none transition-all duration-200" placeholder="10 dígitos">
                         </div>
-                        <div>
-                            <label class="block text-sm font-bold text-primary mb-1">Mensaje o consulta</label>
-                            <textarea id="mensaje" required rows="4" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-primary focus:outline-none" placeholder="¿En qué podemos ayudarte?"></textarea>
+                        <div class="group">
+                            <label class="block text-sm font-bold text-primary mb-1.5 transition-colors group-focus-within:text-accent">Mensaje o consulta</label>
+                            <textarea id="mensaje" required rows="3" class="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-accent focus:border-accent focus:outline-none transition-all duration-200 resize-none" placeholder="¿En qué podemos ayudarte?"></textarea>
                         </div>
-                        <button type="submit" class="w-full bg-whatsapp text-white font-bold py-4 rounded-lg shadow-lg hover:bg-green-600 transition duration-300 flex items-center justify-center gap-2">
-                            <span>🚀 Enviar a WhatsApp</span>
+                        <button type="submit" class="w-full bg-whatsapp text-white font-bold py-4 rounded-lg shadow-lg hover:bg-green-600 active:scale-95 transition-all duration-300 flex items-center justify-center gap-2 mt-4">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.412-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.309 1.656zm6.29-4.143c1.589.943 3.133 1.467 4.742 1.468 5.232 0 9.49-4.258 9.493-9.491.002-2.533-.987-4.915-2.785-6.712-1.797-1.797-4.18-2.785-6.711-2.787-5.231 0-9.49 4.258-9.493 9.491-.001 1.684.444 3.325 1.288 4.766l-.973 3.548 3.64-.955zm10.588-6.14c-.273-.137-1.616-.797-1.866-.888-.25-.091-.432-.137-.614.137-.182.273-.705.888-.864 1.071-.159.182-.318.205-.591.068-.273-.137-1.15-.423-2.19-1.353-.809-.721-1.355-1.611-1.513-1.884-.159-.273-.017-.42.12-.556.123-.122.273-.318.409-.477.137-.159.182-.273.273-.455.091-.182.046-.341-.023-.477-.068-.136-.614-1.48-.841-2.026-.221-.532-.443-.459-.614-.468-.159-.008-.341-.01-.523-.01s-.477.068-.727.341c-.25.273-.955.933-.955 2.276s.977 2.641 1.114 2.823c.136.182 1.922 2.936 4.655 4.116.65.281 1.157.448 1.551.573.654.208 1.25.178 1.72.108.523-.078 1.616-.66 1.843-1.297.227-.637.227-1.184.159-1.297-.068-.113-.25-.182-.523-.319z"/></svg>
+                            <span>Enviar a WhatsApp</span>
                         </button>
                     </form>
                 </div>
